@@ -99,11 +99,11 @@ CREATE TABLE IF NOT EXISTS recursos (
 );
 
 CREATE TABLE IF NOT EXISTS portar (
-	idhab INTEGER NOT NULL,
+	idhabilidade INTEGER NOT NULL,
     idclasse INTEGER NOT NULL,
-    FOREIGN KEY (idhab) REFERENCES habilidade(idhabilidade),
+    FOREIGN KEY (idhabilidade) REFERENCES habilidade(idhabilidade),
     FOREIGN KEY (idclasse) REFERENCES classe(idclasse),
-    PRIMARY KEY (idhab, idclasse)
+    PRIMARY KEY (idhabilidade, idclasse)
 );
 
 CREATE TABLE IF NOT EXISTS ofertar (

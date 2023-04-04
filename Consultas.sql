@@ -7,17 +7,17 @@ SELECT descricao FROM classe;
 -- 3) União das tabelas de cada classe
 SELECT idclasse, deuses AS caract1, simbSagrados AS caract2, magiasCura AS magias, bonusFe AS bonus FROM clerigo UNION SELECT * FROM mago UNION SELECT * FROM barbaro UNION SELECT * FROM arqueiro;
 
--- 4) Seleção das habilidade com custo menor que 500 -- EXCEPT não existe no MYSQL
--- SELECT nome, custo FROM habilidade EXCEPT SELECT custo FROM habilidade WHERE custo<500;
+-- 4) Seleção das armas que não foram ofertadas a nenhuma classe -- EXCEPT não existe em MYSQL
+SELECT idarma, nome FROM arma WHERE idarma NOT IN (SELECT idarma FROM ofertar);
 
 -- 5) Seleção das habilidades portadas por alguma classe -- INTERSECT não existe no MYSQL
--- SELECT idhabilidade FROM habilidade INTERSECT SELECT idhab FROM portar;
+SELECT DISTINCT * FROM habilidade NATURAL JOIN portar;
 
 -- 6) Seleção de armas que foram ofertadas para pelo menos uma classe
 SELECT idarma, nome FROM arma WHERE idarma IN (SELECT DISTINCT idarma FROM ofertar);
 
 -- 7)
-SELECT idhabilidade, nome FROM habilidade WHERE idhabilidade NOT IN (SELECT DISTINCT idhab FROM portar); -- Habilidades que não são portadas por nenhuma classe
+SELECT idhabilidade, nome FROM habilidade WHERE idhabilidade NOT IN (SELECT DISTINCT idhabilidade FROM portar); -- Habilidades que não são portadas por nenhuma classe
 SELECT descricao FROM classe WHERE idclasse = ANY (SELECT idclasse FROM mago); -- Descrição das classes em que o id da classe está presente na tabela mago
 SELECT nome FROM personagem WHERE EXISTS (SELECT tagUser FROM usuario WHERE tagUser = 4321); -- Nomes dos personagens possuídos pelo usuário com a tag 4321
 SELECT * FROM recursos WHERE idrecurso = ALL (SELECT idrec FROM deter); -- Características de um único recurso detido por todos as classes
@@ -27,7 +27,7 @@ SELECT nome FROM personagem
 WHERE (idesp, idclasse) = ANY
 	(SELECT DISTINCT a.idespecie, b.idclasse 
 	FROM (SELECT * FROM especie WHERE altura<2.00) AS a 
-	INNER JOIN (SELECT * FROM portar WHERE idhab=1) AS b);
+	INNER JOIN (SELECT * FROM portar WHERE idhabilidade=1) AS b);
 
 -- 9) Recursos e habilidades que se relacionam com cada classe
 SELECT * FROM deter RIGHT OUTER JOIN portar ON deter.idclasse=portar.idclasse;
@@ -39,7 +39,7 @@ SELECT * FROM personagem LEFT OUTER JOIN usuario ON tag=tagUser;
 SELECT AVG(carisma) AS "Media Carisma", AVG(forca) AS "Media Forca", AVG(inteligencia) AS "Media Inteligência", AVG(fe) AS "Media Fe" FROM personagem;
 
 -- 12) Para cada habilidade, lista a quantidade de classes com quem se relaciona
-SELECT idhab, COUNT(idclasse) AS "Quantidade de Classes" FROM portar GROUP BY idhab;
+SELECT idhabilidade, COUNT(idclasse) AS "Quantidade de Classes" FROM portar GROUP BY idhabilidade;
 
 -- 13) Nome da espécie, a quantidade de vezes em que ela aparece e sua média de altura
 SELECT nome, COUNT(nome) AS Quantidade, AVG(altura) AS "Média de Altura" FROM especie GROUP BY nome;
@@ -53,7 +53,7 @@ SELECT usuario.login AS usuario, personagem.nome AS nome_personagem, especie.nom
 INNER JOIN especie ON idesp=idespecie); 
 
 -- 16) Para cada personagem, lista sua respectiva arma, recurso e habilidade
-SELECT personagem.nome AS personagem, ofertar.idarma, deter.idrec, portar.idhab FROM 
+SELECT personagem.nome AS personagem, ofertar.idarma, deter.idrec, portar.idhabilidade FROM 
 (((personagem INNER JOIN ofertar ON personagem.idclasse=ofertar.idclasse)
 INNER JOIN deter ON personagem.idclasse=deter.idclasse)
 INNER JOIN portar ON personagem.idclasse=portar.idclasse); 
