@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS personagem (
     carisma INTEGER,
     forca INTEGER,
     inteligencia INTEGER,
+    fe INTEGER,
     tagUser INTEGER NOT NULL,
     idesp INTEGER NOT NULL,
     idclasse INTEGER NOT NULL,

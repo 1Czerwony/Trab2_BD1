@@ -22,8 +22,8 @@ INSERT INTO clerigo
 VALUES (4444, 'Yorixiriamori', 'Filtro dos Sonhos, Mokas', 'Reflorescer, Passáro Cantante', 10);
 
 INSERT INTO personagem
-VALUES (2347, 'Czerwony', 5, 10, 15, 4321, 9234, 1111), (8394, 'Vitulito', 10, 16, 4, 1234, 8274, 4444),
-(3928, 'Reden', 15, 5, 10, 4321, 2384, 2222), (8931, '2ez4starlord', 5, 9, 16, 4567, 9475, 3333);
+VALUES (2347, 'Czerwony', 5, 10, 15, 5, 4321, 9234, 1111), (8394, 'Vitulito', 10, 11, 4, 10, 1234, 8274, 4444),
+(3928, 'Reden', 15, 5, 10, 5, 4321, 2384, 2222), (8931, '2ez4starlord', 5, 9, 16, 5, 4567, 9475, 3333);
 
 INSERT INTO arma
 VALUES (1, 'Leve', 'Perfurante', 'Destreza', 'Arremesso', 'Adaga'),

@@ -19,7 +19,7 @@ SELECT idarma, nome FROM arma WHERE idarma IN (SELECT DISTINCT idarma FROM ofert
 -- 7)
 SELECT idhabilidade, nome FROM habilidade WHERE idhabilidade NOT IN (SELECT DISTINCT idhab FROM portar); -- Habilidades que não são portadas por nenhuma classe
 SELECT descricao FROM classe WHERE idclasse = ANY (SELECT idclasse FROM mago); -- Descrição das classes em que o id da classe está presente na tabela mago
-SELECT nome FROM personagem WHERE EXISTS (SELECT tagUser FROM usuario WHERE tagUser = 4321); -- Nomes dos personagens possuidos pelo usuário com a tag 4321
+SELECT nome FROM personagem WHERE EXISTS (SELECT tagUser FROM usuario WHERE tagUser = 4321); -- Nomes dos personagens possuídos pelo usuário com a tag 4321
 SELECT * FROM recursos WHERE idrecurso = ALL (SELECT idrec FROM deter); -- Características de um único recurso detido por todos as classes
 
 -- 8) Nome dos personagens em que sua especie possui menos de 2m de altura e sua classe porta a habilidade 1
@@ -36,7 +36,7 @@ SELECT * FROM deter RIGHT OUTER JOIN portar ON deter.idclasse=portar.idclasse;
 SELECT * FROM personagem LEFT OUTER JOIN usuario ON tag=tagUser;
 
 -- 11)	Média dos atributos dos personagens
-SELECT AVG(carisma) AS "Media Carisma", AVG(forca) AS "Media Forca", AVG(inteligencia) AS "Media Inteligência" FROM personagem;
+SELECT AVG(carisma) AS "Media Carisma", AVG(forca) AS "Media Forca", AVG(inteligencia) AS "Media Inteligência", AVG(fe) AS "Media Fe" FROM personagem;
 
 -- 12) Para cada habilidade, lista a quantidade de classes com quem se relaciona
 SELECT idhab, COUNT(idclasse) AS "Quantidade de Classes" FROM portar GROUP BY idhab;
